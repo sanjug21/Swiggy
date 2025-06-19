@@ -4,8 +4,12 @@ import { TbCirclePercentage } from "react-icons/tb";
 import { CgPokemon } from "react-icons/cg";
 import { BsCart } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Header() {
+
+  const cartItems=useSelector((store) => store.cart.items);
+
   const getNavLinkClass = ({ isActive }) => {
     const baseClasses = "flex items-center space-x-2 p-2 rounded-md transition-colors duration-200";
     const activeClasses = "text-orange-400 bg-gray-800";
@@ -52,8 +56,11 @@ function Header() {
         </NavLink>
 
         <NavLink to="/cart" className={getNavLinkClass}>
+        
           <BsCart />
-          <div>Cart</div>
+    
+      
+          <div>Cart {cartItems.length}</div>
         </NavLink>
       </div>
     </div>

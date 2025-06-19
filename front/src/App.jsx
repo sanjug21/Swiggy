@@ -1,19 +1,21 @@
 import Body from "./components/Body"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
-
+import { Outlet } from "react-router-dom"
+import{ Provider} from "react-redux"
+import appStore from "./utils/appStore"
 
 function App() {
   
   return (
-    <>
+    <Provider store={appStore}>
     
     <Header />
+    {/* <Body /> */}
     <Outlet />
     <Footer/>
      
-    </>
+    </Provider>
   )
 }
 
