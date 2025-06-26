@@ -13,9 +13,15 @@ const cartSclice=createSlice({
         state.items.push(action.payload);
     },
     removeItem:(state, action)=>{
-       
-        const index = state.items.findIndex(item => item.id === action.payload.itemId);
-        itemToRemove = state.items[index];
+      console.log("Removing item with ID:", action.payload);
+      
+        const index = state.items.findIndex(item => item.info.id === action.payload);
+        if (index !== -1) {
+            state.items.splice(index, 1);
+        } else {
+            console.warn(`Item with ID ${action.payload} not found in cart.`);
+        }
+
     },
     clearCart:(state)=>{
         state.items=[];

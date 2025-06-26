@@ -7,10 +7,11 @@ const SWIGGY_IMAGE_BASE_URL = 'https://media-assets.swiggy.com/swiggy/image/uplo
 
 function Cart() {
   const items = useSelector((store) => store.cart.items);
-
   const dispatch = useDispatch();
 
   const handleRemoveItem = (itemId) => {
+    
+    
     dispatch(removeItem(itemId));
   };
 
@@ -33,16 +34,31 @@ function Cart() {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {items.map((foodItem) => {
-              
-             return (
-               <div>{foodItem.info.id} </div> 
-             )
-              
-            })}
-              
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {items.map((foodItem) => (
+              <div
+                key={foodItem.info.id}
+                className="flex flex-col md:flex-row items-center bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-[1.02]"
+              >
+                <img
+                  src={`${SWIGGY_IMAGE_BASE_URL}${foodItem.info.imageId}`}
+                  alt={foodItem.info.name}
+                  className="w-full md:w-32 h-32 object-cover"
+                />
+                <div className="p-4 flex-grow text-center md:text-left">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-1">{foodItem.info.name}</h3>
+                  <p className="text-gray-600 mb-2">
+                    ₹{foodItem.info.price ? foodItem.info.price / 100 : foodItem.info.defaultPrice / 100}
+                  </p>
+                  <button
+                    onClick={() => handleRemoveItem(foodItem.info.id)}
+                    className="mt-2 px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-sm hover:bg-red-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </>
       ) : (
