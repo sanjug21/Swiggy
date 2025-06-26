@@ -1,10 +1,11 @@
 import express from 'express';
 const router = express.Router();
 import { createRestaurant , getAllRestaurants,deleteRestaurant ,updateRestaurant } from '../controllers/restaurant.controller.js';
+import { verifyToken } from '../middleware/verifyToken.js';
 
-router.get('/', getAllRestaurants); 
-router.post('/', createRestaurant);
-router.delete('/:id',deleteRestaurant);
-router.put('/:id', updateRestaurant); 
+router.get('/',verifyToken, getAllRestaurants); 
+router.post('/',verifyToken, createRestaurant);
+router.delete('/:id',verifyToken,deleteRestaurant);
+router.put('/:id',verifyToken, updateRestaurant); 
 
 export default router;
